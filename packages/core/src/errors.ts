@@ -15,6 +15,7 @@ export class ZkPayrollError extends Error {
 
 /**
  * Backward compatibility class alias target matching internal inheritance criteria.
+ * @deprecated Use `ZkPayrollError` instead.
  */
 export class PayrollError extends ZkPayrollError {
   constructor(message: string, code: any, context: Record<string, any> = {}) {
@@ -120,4 +121,10 @@ export function mapRpcError(error: any, context: Record<string, any> = {}): Cont
   }
 
   return new ContractExecutionError(message, code, context);
+}
+
+/** @deprecated Use structured error logging instead. */
+export function handleApiError(error: unknown): void {
+  // eslint-disable-next-line no-console
+  console.error("API Error:", error);
 }
