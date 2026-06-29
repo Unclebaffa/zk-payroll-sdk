@@ -34,7 +34,7 @@ export class SalaryCommitmentClient extends BaseContractWrapper {
     const args: xdr.ScVal[] = [
       new Address(request.employer).toScVal(),
       new Address(request.employee).toScVal(),
-      nativeToScVal(commitmentHashBuf, { type: "bytes" }),
+      nativeToScVal(new Uint8Array(commitmentHashBuf), { type: "bytes" }),
       nativeToScVal(request.cycleId, { type: "u64" }),
     ];
 
@@ -79,7 +79,7 @@ export class SalaryCommitmentClient extends BaseContractWrapper {
           }),
           new xdr.ScMapEntry({
             key: nativeToScVal("commitment_hash", { type: "symbol" }),
-            val: nativeToScVal(commitmentHashBuf, { type: "bytes" }),
+            val: nativeToScVal(new Uint8Array(commitmentHashBuf), { type: "bytes" }),
           }),
           new xdr.ScMapEntry({
             key: nativeToScVal("cycle_id", { type: "symbol" }),

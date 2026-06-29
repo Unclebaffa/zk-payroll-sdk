@@ -47,7 +47,7 @@ function makeCommitmentEntryScVal(overrides?: Partial<Record<string, xdr.ScVal>>
   const defaults: Record<string, xdr.ScVal> = {
     employer: new Address(TEST_EMPLOYER).toScVal(),
     employee: new Address(TEST_EMPLOYEE).toScVal(),
-    commitment_hash: nativeToScVal(Buffer.from("abcd", "hex"), { type: "bytes" }),
+    commitment_hash: nativeToScVal(new Uint8Array(Buffer.from("abcd", "hex")), { type: "bytes" }),
     cycle_id: nativeToScVal(1n, { type: "u64" }),
     created_at: nativeToScVal(100n, { type: "u64" }),
     revealed: xdr.ScVal.scvBool(false),
@@ -419,7 +419,7 @@ describe("ProofVerifierClient", () => {
   describe("getVerificationKey", () => {
     it("calls invoke with method name 'get_verification_key'", async () => {
       const keyBytes = Buffer.from("deadbeef", "hex");
-      client.invokeStub.mockResolvedValue(nativeToScVal(keyBytes, { type: "bytes" }));
+      client.invokeStub.mockResolvedValue(nativeToScVal(new Uint8Array(keyBytes), { type: "bytes" }));
       const key = await client.getVerificationKey(1, signer);
       expect(client.invokeStub.mock.calls[0][0]).toBe("get_verification_key");
       expect(key).toBe("deadbeef");
@@ -456,7 +456,7 @@ describe("ProofVerifierClient", () => {
       const infoScVal = xdr.ScVal.scvMap([
         new xdr.ScMapEntry({ key: nativeToScVal("id", { type: "symbol" }), val: nativeToScVal(1, { type: "u32" }) }),
         new xdr.ScMapEntry({ key: nativeToScVal("description", { type: "symbol" }), val: nativeToScVal("my key", { type: "string" }) }),
-        new xdr.ScMapEntry({ key: nativeToScVal("key", { type: "symbol" }), val: nativeToScVal(Buffer.from("ff00", "hex"), { type: "bytes" }) }),
+        new xdr.ScMapEntry({ key: nativeToScVal("key", { type: "symbol" }), val: nativeToScVal(new Uint8Array(Buffer.from("ff00", "hex")), { type: "bytes" }) }),
       ]);
       client.invokeStub.mockResolvedValue(infoScVal);
       const info = await client.getVerificationKeyInfo(1, signer);
@@ -494,7 +494,7 @@ describe("PaymentExecutorClient", () => {
 
   describe("execute", () => {
     it("calls invoke with method name 'execute'", async () => {
-      client.invokeStub.mockResolvedValue(nativeToScVal(Buffer.from("txhash", "hex"), { type: "bytes" }));
+      client.invokeStub.mockResolvedValue(nativeToScVal(new Uint8Array(Buffer.from("txhash", "hex")), { type: "bytes" }));
       const result = await client.execute(
         { recipient: TEST_EMPLOYEE, amount: 1000n, asset: TEST_TOKEN },
         signer
@@ -504,7 +504,7 @@ describe("PaymentExecutorClient", () => {
     });
 
     it("encodes four XDR arguments", async () => {
-      client.invokeStub.mockResolvedValue(nativeToScVal(Buffer.from("00", "hex"), { type: "bytes" }));
+      client.invokeStub.mockResolvedValue(nativeToScVal(new Uint8Array(Buffer.from("00", "hex")), { type: "bytes" }));
       await client.execute(
         { recipient: TEST_EMPLOYEE, amount: 1000n, asset: TEST_TOKEN, memo: "bonus" },
         signer

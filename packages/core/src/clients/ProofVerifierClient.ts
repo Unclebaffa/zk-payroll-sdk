@@ -27,7 +27,7 @@ export class ProofVerifierClient extends BaseContractWrapper {
         publicInputs.map((s) => {
           const isHex = /^[0-9a-fA-F]+$/.test(s) && s.length % 2 === 0;
           const buf = isHex ? Buffer.from(s, "hex") : Buffer.from(s, "utf-8");
-          return nativeToScVal(buf, { type: "bytes" });
+          return nativeToScVal(new Uint8Array(buf), { type: "bytes" });
         })
       ),
       nativeToScVal(verificationKeyId, { type: "u32" }),
@@ -46,7 +46,7 @@ export class ProofVerifierClient extends BaseContractWrapper {
     const isHex = /^[0-9a-fA-F]+$/.test(vk) && vk.length % 2 === 0;
     const vkBuffer = isHex ? Buffer.from(vk, "hex") : Buffer.from(vk, "utf-8");
     const args: xdr.ScVal[] = [
-      nativeToScVal(vkBuffer, { type: "bytes" }),
+      nativeToScVal(new Uint8Array(vkBuffer), { type: "bytes" }),
       nativeToScVal(description, { type: "string" }),
     ];
 
