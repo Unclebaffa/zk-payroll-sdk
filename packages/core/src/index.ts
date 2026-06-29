@@ -34,3 +34,6 @@ export type { ConfirmationOptions, ConfirmationResult } from "./events";
 
 // ── Typed Contract Clients ───────────────────────────────────────────────────
 export * from "./clients";
+
+// ── Payroll Execution Summary ────────────────────────────────────────────────
+export * from "./summary";
