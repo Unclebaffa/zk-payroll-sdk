@@ -237,6 +237,7 @@ Each `DiagnosticEntry` contains:
 
 - [API Reference](./docs/API.md) - Complete API documentation
 - [ZK Proof Generation](./docs/ZK_PROOF_GENERATION.md) - Detailed proof generation guide
+- [Troubleshooting](./docs/TROUBLESHOOTING.md) - Solutions for common CI, dependency, and environment issues
 
 ## Development
 
@@ -253,3 +254,5 @@ npm test
 # Lint
 npm run lint
 ```
+
+> Having trouble? See the [Troubleshooting Guide](./docs/TROUBLESHOOTING.md).
