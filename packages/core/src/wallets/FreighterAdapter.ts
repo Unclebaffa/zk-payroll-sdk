@@ -227,7 +227,7 @@ export class FreighterAdapter implements IWalletAdapter {
   }
 
   private setupEventListeners(): void {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || typeof window.addEventListener !== "function") {
       return;
     }
 
